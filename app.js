@@ -26,6 +26,14 @@ const gameBoard = () =>{
 
     }
 
+    const updateTile = () =>{
+
+        
+
+
+
+    }
+
     return{
 
         printBoard
@@ -43,13 +51,7 @@ const Cell = () => {
     const getValue = ()=>value;
     const changeValue =(player)=>{
         
-        if(player === "X"){
-
-            value == "X";
-        }else{
-
-            value == "O";
-        }
+        value = player;
 
     };
 
@@ -62,5 +64,119 @@ const Cell = () => {
 
 }
 
-const playGame = gameBoard();
-playGame.printBoard();
+const playerTurn = () =>{
+    let row;
+    let col;
+    document.addEventListener("keydown", (event)=>{
+
+        switch(event.key){
+
+            case '1':
+                row = 0;
+                col = 0;
+                break;
+            case '2':
+                row = 0;
+                col = 1;
+                break;
+
+            case '3':
+                row = 0;
+                col = 2;
+                break;
+                
+            case '4':
+                row = 1;
+                col = 0;
+                break;
+                
+            case '5':
+                row = 1;
+                col = 1;
+                break;
+            case '6':
+                row = 1;
+                col = 2;
+                break;
+                
+            case '7':   
+                row = 2;
+                col = 0;
+                break;
+            case '8':
+                row = 2;
+                col = 1;
+                break;
+            case '9':
+                row = 2;
+                col = 2;
+                break;
+            default:
+
+            console.log("A key must be pressed")
+
+
+        }
+
+       
+
+    });
+
+    row = 0;
+    col = 0;
+    return{
+        row,
+        col
+    };
+
+
+}
+
+
+const gameController = () => {
+
+    const playGame = gameBoard();
+    playGame.printBoard();
+    
+    
+  
+
+  const players = ["X", "O"];
+
+  const checkwin = () => {
+
+
+
+  };
+
+  const switchTurns = () => {
+
+
+
+  }
+
+  const updateboard = () => {
+
+    const playerLocation =  playerTurn();
+    console.log(playerLocation);
+    //const updateLocation = writePlayerMove(currentPlayer, playerLocation);
+
+
+  }
+
+  updateboard();
+
+
+
+ 
+
+
+
+    
+
+
+}
+
+gameController();
+
+
