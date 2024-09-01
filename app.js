@@ -26,9 +26,9 @@ const gameBoard = () =>{
 
     }
 
-    const updateTile = () =>{
+    const updateTile = (activePlayer,playerLocation) =>{
 
-        
+        board[playerLocation.row][playerLocation.col].changeValue(activePlayer);
 
 
 
@@ -36,7 +36,7 @@ const gameBoard = () =>{
 
     return{
 
-        printBoard
+        printBoard, updateTile
 
 
     }
@@ -113,7 +113,7 @@ const playerTurn = () =>{
                 break;
             default:
 
-            console.log("A key must be pressed")
+             console.log("A key must be pressed")
 
 
         }
@@ -139,9 +139,11 @@ const gameController = () => {
     playGame.printBoard();
     
     
+    
   
 
   const players = ["X", "O"];
+  let activePlayer = players[0];
 
   const checkwin = () => {
 
@@ -155,17 +157,21 @@ const gameController = () => {
 
   }
 
-  const updateboard = () => {
+  const updateboard = (activePlayer) => {
 
     const playerLocation =  playerTurn();
+
     console.log(playerLocation);
+    playGame.updateTile(activePlayer, playerLocation);
     //const updateLocation = writePlayerMove(currentPlayer, playerLocation);
 
 
   }
 
-  updateboard();
-
+ 
+  updateboard(activePlayer);
+  playGame.printBoard();
+    
 
 
  
