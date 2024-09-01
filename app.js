@@ -34,9 +34,41 @@ const gameBoard = () =>{
 
     }
 
+    const checkwin = (activePlayer) =>{
+
+        //diagonal
+        if((board[0][0].getValue() === activePlayer && board[1][1].getValue() === activePlayer && board[2][2].getValue() === activePlayer) || 
+        (board[0][2].getValue() === activePlayer && board[1][1].getValue() === activePlayer && board[2][0].getValue() === activePlayer)){
+
+            return true;
+         //horizontal 
+        }else if((board[0][0].getValue() === activePlayer && board[0][1].getValue() === activePlayer && board[0][2].getValue() === activePlayer) || 
+        (board[1][0].getValue() === activePlayer && board[1][1].getValue() === activePlayer && board[1][2].getValue() === activePlayer) || 
+        (board[2][0].getValue() === activePlayer && board[2][1].getValue() === activePlayer && board[2][2].getValue() === activePlayer) ){
+
+                return true;
+         //vertical
+        }else if((board[0][0].getValue() === activePlayer && board[1][0].getValue() === activePlayer && board[2][0].getValue() === activePlayer) || 
+        (board[0][1].getValue() === activePlayer && board[1][1].getValue() === activePlayer && board[2][1].getValue() === activePlayer)|| 
+        (board[0][2].getValue() === activePlayer && board[1][2].getValue() === activePlayer && board[2][2].getValue() === activePlayer)){
+
+            return true;
+
+        }else{
+
+            return false;
+        }
+
+
+
+
+    }
+
+    
+
     return{
 
-        printBoard, updateTile
+        printBoard, updateTile, checkwin
 
 
     }
@@ -132,6 +164,14 @@ const playerTurn = () =>{
 
 }
 
+// const threeInARow = (activePlayer, playGame) =>{
+
+//     //diagonal
+//     if(playGame.)
+
+
+// }
+
 
 const gameController = () => {
 
@@ -145,32 +185,43 @@ const gameController = () => {
   const players = ["X", "O"];
   let activePlayer = players[0];
 
-  const checkwin = () => {
-
-
-
-  };
+  
 
   const switchTurns = () => {
 
+    if(activePlayer === players[0]){
+
+        activePlayer = players[1];
+    }else{
+
+
+        activePlayer = players[0];
+    }
 
 
   }
 
-  const updateboard = (activePlayer) => {
+  const updateboard = () => {
 
-    const playerLocation =  playerTurn();
+    //const playerLocation =  playerTurn();
 
-    console.log(playerLocation);
-    playGame.updateTile(activePlayer, playerLocation);
+    //console.log(playerLocation);
+    //for testing
+    playGame.updateTile(activePlayer, {row: 0, col: 0});
+    playGame.printBoard();
+    playGame.updateTile(activePlayer, {row: 1, col: 0});
+    playGame.printBoard();
+    playGame.updateTile(activePlayer, {row: 2, col: 0});
+    playGame.printBoard();
     //const updateLocation = writePlayerMove(currentPlayer, playerLocation);
 
 
   }
 
  
-  updateboard(activePlayer);
-  playGame.printBoard();
+  updateboard();
+  //playGame.printBoard();
+  console.log(playGame.checkwin(activePlayer));
     
 
 
