@@ -64,11 +64,18 @@ const gameBoard = () =>{
 
     }
 
+    const reset = () =>{
+
+        board.map((row) =>{ row.map((cell) => {cell.changeValue("1")})});
+
+
+    }
+
     
 
     return{
 
-        printBoard, updateTile, checkwin
+        printBoard, updateTile, checkwin, reset
 
 
     }
@@ -192,13 +199,21 @@ const gameController = () => {
     if(activePlayer === players[0]){
 
         activePlayer = players[1];
+        console.log("O's turn");
     }else{
 
 
         activePlayer = players[0];
+        console.log("X's turn");
     }
 
 
+  }
+
+  const newGame = () =>{
+
+        activePlayer = players[0];
+        playGame.reset();
   }
 
   const updateboard = () => {
@@ -222,6 +237,8 @@ const gameController = () => {
   updateboard();
   //playGame.printBoard();
   console.log(playGame.checkwin(activePlayer));
+  newGame();
+  //playGame.printBoard();
     
 
 
