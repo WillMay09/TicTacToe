@@ -171,25 +171,17 @@ const playerTurn = () =>{
 
 }
 
-// const threeInARow = (activePlayer, playGame) =>{
-
-//     //diagonal
-//     if(playGame.)
-
-
-// }
 
 
 const gameController = () => {
 
+   
     const playGame = gameBoard();
-    playGame.printBoard();
-    
-    
     
   
 
   const players = ["X", "O"];
+
   let activePlayer = players[0];
 
   
@@ -233,14 +225,26 @@ const gameController = () => {
 
   }
 
- 
-  updateboard();
-  //playGame.printBoard();
-  console.log(playGame.checkwin(activePlayer));
-  newGame();
-  //playGame.printBoard();
-    
+  const playRound = () => {
 
+    
+    playGame.printBoard();
+    updateboard();
+    //playGame.printBoard();
+    console.log(playGame.checkwin(activePlayer));
+    newGame();
+    //playGame.printBoard();
+
+  }
+
+ 
+ 
+    
+return{
+
+
+    playRound
+}
 
  
 
@@ -251,6 +255,7 @@ const gameController = () => {
 
 }
 
-gameController();
+const startGame = gameController();
+startGame.playRound();
 
 
