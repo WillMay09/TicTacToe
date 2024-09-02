@@ -17,3 +17,41 @@
 
 }
 
+header{
+
+    height: 20vh;
+
+
+}
+.gameBody{
+    background-color: var(--main-color);
+    height: 60vh
+}
+/* Game Board Styling  */
+.gameboard{
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+
+}
+
+.tile{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--board-color);
+    color: var(--secondary-color);
+    border-radius: 10px;
+    
+
+
+}
+
+/* ////////////////////////////////////////////////////// */
+
+footer{
+
+    height: 20vh;
+
+}
