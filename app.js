@@ -26,13 +26,16 @@ const gameBoard = () =>{
 
     }
 
-    const updateTile = (activePlayer,playerLocation) =>{
+    const updateTile = (activePlayer,index) =>{
+
+        const playerLocation = translateIndex(index) 
 
         board[playerLocation.row][playerLocation.col].changeValue(activePlayer);
 
 
 
     }
+    const getBoard = () => board;
 
     const checkwin = (activePlayer) =>{
 
@@ -103,12 +106,11 @@ const Cell = () => {
 
 }
 
-const playerTurn = () =>{
+const translateIndex = (index) =>{
     let row;
     let col;
-    document.addEventListener("keydown", (event)=>{
 
-        switch(event.key){
+        switch(index){
 
             case '1':
                 row = 0;
@@ -152,17 +154,12 @@ const playerTurn = () =>{
                 break;
             default:
 
-             console.log("A key must be pressed")
+             console.log("A tile was not pressed")
 
 
         }
 
        
-
-    });
-
-    row = 0;
-    col = 0;
     return{
         row,
         col
@@ -184,7 +181,9 @@ const gameController = () => {
 
   let activePlayer = players[0];
 
-  
+  const getActivePlayer = () => activePlayer;
+
+
 
   const switchTurns = () => {
 
@@ -208,18 +207,16 @@ const gameController = () => {
         playGame.reset();
   }
 
-  const updateboard = () => {
+  const updateboard = (index) => {
 
     //const playerLocation =  playerTurn();
 
     //console.log(playerLocation);
     //for testing
-    playGame.updateTile(activePlayer, {row: 0, col: 0});
+    playGame.updateTile(activePlayer, index);
     playGame.printBoard();
-    playGame.updateTile(activePlayer, {row: 1, col: 0});
-    playGame.printBoard();
-    playGame.updateTile(activePlayer, {row: 2, col: 0});
-    playGame.printBoard();
+    switchTurns();
+   
     //const updateLocation = writePlayerMove(currentPlayer, playerLocation);
 
 
@@ -228,12 +225,8 @@ const gameController = () => {
   const playRound = () => {
 
     
-    playGame.printBoard();
-    updateboard();
-    //playGame.printBoard();
-    console.log(playGame.checkwin(activePlayer));
-    newGame();
-    //playGame.printBoard();
+    return playGame.checkwin(activePlayer);
+    
 
   }
 
@@ -243,19 +236,58 @@ const gameController = () => {
 return{
 
 
-    playRound
+    playRound, updateboard, getActivePlayer, getBoard : playGame.getBoard
 }
-
- 
-
-
-
-    
 
 
 }
+function ScreenController(){
+    const startGame = gameController();
+    const gameBoard = document.querySelector('.gameBoard');
+    const tiles = document.querySelectorAll('.tile');
+    tiles.forEach(tile =>{
 
-const startGame = gameController();
-startGame.playRound();
+        tile.addEventListener('click',(event)=>{
+
+            const cell = event.target;
+            const index = cell.getAttribute('data-index');
+            if(!cell.textContent){
+
+                cell.textContent = startGame.getActivePlayer();
+                startGame.updateboard(index);
+                displayWinner()
+                
+
+
+                
+            }
+            
+
+        })
+
+
+    })
+
+    const displayWinner = () =>{
+
+        const playerWon = startGame.playRound();
+
+        if(playerWon){
+
+            console.log(`Player ${startGame.getActivePlayer()}'s won`);
+        }
+
+
+    }
+
+
+    //startGame.playRound();
+
+
+
+}
+
+ScreenController();
+
 
 

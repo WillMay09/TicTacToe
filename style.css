@@ -5,7 +5,8 @@
     --board-color: #F08080;
     --shadow-color: #F5F5F5;
     --max-size: 500px;
-    --min-size: 100px
+    --min-size: 100px;
+    --font-size: larger;
 
 
 
@@ -16,6 +17,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    color: var(--secondary-color);
 
 
 }
@@ -23,6 +25,10 @@
 header{
 
     height: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
 
 
 }
@@ -40,7 +46,7 @@ header{
     grid-template-rows: repeat(3, minmax(100px, 1fr));
     grid-template-columns: repeat(3, minmax(100px, 1fr));
     gap: 10px;
-    margin: 5vh 20vh;
+    
     height: 100%;
     width: 100%;
     max-height: 500px;
@@ -57,6 +63,7 @@ header{
     color: var(--secondary-color);
     border-radius: 10px;
     transition: background-color 0.3s ease, transform 0.3s ease;
+    font-size: 2rem;
     
 
 }
@@ -75,5 +82,8 @@ header{
 footer{
 
     height: 20vh;
+    display:grid;
+    justify-content: center;
+    align-items: center;
 
 }
