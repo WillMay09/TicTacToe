@@ -32,7 +32,7 @@ const gameBoard = () =>{
 
         board[playerLocation.row][playerLocation.col].changeValue(activePlayer);
 
-
+       
 
     }
     const getBoard = () => board;
@@ -176,7 +176,7 @@ const gameController = () => {
     const playGame = gameBoard();
     
   
-
+  let winner = false;
   const players = ["X", "O"];
 
   let activePlayer = players[0];
@@ -209,23 +209,33 @@ const gameController = () => {
 
   const updateboard = (index) => {
 
-    //const playerLocation =  playerTurn();
-
-    //console.log(playerLocation);
-    //for testing
-    playGame.updateTile(activePlayer, index);
+    
+    playGame.updateTile(activePlayer, index);//updating tile with activePlayer(either X or O)
+    
+    
     playGame.printBoard();
+    
+    setWinner();
     switchTurns();
    
     //const updateLocation = writePlayerMove(currentPlayer, playerLocation);
 
+  }
+
+  const setWinner = () => {//checks for a winner, sets the variable to true if there is a winner
+
+    if(playGame.checkwin(activePlayer) === true){
+        winner = playGame.checkwin(activePlayer);
+    };
+    console.log(winner);
+
 
   }
 
-  const playRound = () => {
+  const getWinner = () => {//returns the winner variable
 
     
-    return playGame.checkwin(activePlayer);
+    return winner;
     
 
   }
@@ -236,26 +246,27 @@ const gameController = () => {
 return{
 
 
-    playRound, updateboard, getActivePlayer, getBoard : playGame.getBoard
+    getWinner, updateboard, getActivePlayer, getBoard : playGame.getBoard
 }
 
 
 }
 function ScreenController(){
     const startGame = gameController();
-    const gameBoard = document.querySelector('.gameBoard');
+    
     const tiles = document.querySelectorAll('.tile');
     tiles.forEach(tile =>{
 
         tile.addEventListener('click',(event)=>{
 
-            const cell = event.target;
-            const index = cell.getAttribute('data-index');
-            if(!cell.textContent){
-
-                cell.textContent = startGame.getActivePlayer();
-                startGame.updateboard(index);
-                displayWinner()
+            const cell = event.target;//get clicked on cell
+            const index = cell.getAttribute('data-index');//get index specific cell
+            if(!cell.textContent){//if the cell is not filled
+                
+                cell.textContent = startGame.getActivePlayer();//update html for X or O in the tile clicked on
+                startGame.updateboard(index);//update backend board
+                displayWinner()//check for winner
+                
                 
 
 
@@ -270,9 +281,9 @@ function ScreenController(){
 
     const displayWinner = () =>{
 
-        const playerWon = startGame.playRound();
-
-        if(playerWon){
+        const playerWon = startGame.getWinner();
+        console.log(`playerWon variable ${playerWon}`);
+        if(playerWon === true){
 
             console.log(`Player ${startGame.getActivePlayer()}'s won`);
         }
