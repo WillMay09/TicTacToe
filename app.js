@@ -246,7 +246,7 @@ const gameController = () => {
 return{
 
 
-    getWinner, updateboard, getActivePlayer, getBoard : playGame.getBoard
+    getWinner,switchTurns, updateboard, getActivePlayer, getBoard : playGame.getBoard
 }
 
 
@@ -255,6 +255,8 @@ function ScreenController(){
     const startGame = gameController();
     
     const tiles = document.querySelectorAll('.tile');
+    const title = document.querySelector('.title');
+    const headerElement = document.querySelector('header');
     tiles.forEach(tile =>{
 
         tile.addEventListener('click',(event)=>{
@@ -284,12 +286,26 @@ function ScreenController(){
         const playerWon = startGame.getWinner();
         console.log(`playerWon variable ${playerWon}`);
         if(playerWon === true){
-
-            console.log(`Player ${startGame.getActivePlayer()}'s won`);
+            startGame.switchTurns();
+            animateWinner(startGame.getActivePlayer());
         }
 
 
     }
+
+    const animateWinner = (winner) =>{
+
+        title.textContent = `${winner}'s wins!`;
+        headerElement.classList.remove('animate');
+
+
+       
+            headerElement.classList.add('animate')
+        
+
+
+
+    };
 
 
     //startGame.playRound();

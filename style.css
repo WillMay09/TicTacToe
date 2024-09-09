@@ -32,6 +32,28 @@ header{
 
 
 }
+/* title animation when a player wins */
+
+.animate{
+
+
+    animation: slide-in 0.7s both;
+}
+@keyframes slide-in {
+
+0%{
+
+    transform: translateY(-1000px);
+}
+100%{
+
+    transform: translateY(0);
+
+
+}
+
+
+}
 .gameBody{
     background-color: var(--secondary-color);
     height: 60vh;
